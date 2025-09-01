@@ -1,4 +1,0 @@
-📁 Carpeta para:
-- logo.png (tu logo personalizado)
-- favicon.ico
-- images/
