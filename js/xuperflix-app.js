@@ -8,7 +8,7 @@ const XUPERFLIX = {
         text: '#ffffff'
     },
     apiEndpoints: {
-        movies: atob('aHR0cHM6Ly9hbnVzZGJzLm9ucmVuZGVyLmNvbS9tb3ZpZXM/YXBpLWtleT01NDA0Mzg'),
+        movies: atob('aHR0cHM6Ly9hbnVzZGJzLm9ucmVuZGVyLmNvbS9tb3ZpZXM/YXBpLWtleT01NDA0Mzg='),
         series: atob('aHR0cHM6Ly9hbnVzZGJzLm9ucmVuZGVyLmNvbS9zZXJpZXMvP2FwaS1rZXk9NTQwNDM4')
     }
 };
@@ -20,7 +20,6 @@ const elements = {
     loading: document.getElementById('loading'),
     searchInput: document.getElementById('search-input'),
     searchBtn: document.getElementById('search-btn'),
-    modal: document.getElementById('movie-modal'),
     tabs: document.querySelectorAll('.nav-tab'),
     container: document.getElementById('tabs')
 };
@@ -134,7 +133,7 @@ function createGenreSection(genre, items, type) {
         </div>
         <div class="xuper-grid">
             ${items.slice(0, 20).map(item => `
-                <div class="xuper-card" onclick="openXuperModal('${type}', '${item.titulo}')">
+                <div class="xuper-card" onclick="openXuperPlayer('${type}', '${item.titulo}')">
                     <img src="${item.post}" alt="${item.titulo}" loading="lazy">
                     <div class="xuper-info">
                         <h3>${item.titulo}</h3>
@@ -143,43 +142,12 @@ function createGenreSection(genre, items, type) {
                             <span>⭐ ${utils.getRating()}</span>
                         </div>
                     </div>
-                    <div class="xuper-play">
-                        <i class="fas fa-play"></i>
-                    </div>
                 </div>
             `).join('')}
         </div>
     `;
     
     elements.content.appendChild(section);
-}
-
-// ===== FUNCIONES MODAL =====
-function openXuperModal(type, title) {
-    const modal = document.createElement('div');
-    modal.className = 'xuper-modal';
-    modal.innerHTML = `
-        <div class="xuper-modal-content">
-            <div class="xuper-modal-header">
-                <h2>${title}</h2>
-                <button onclick="closeXuperModal()">✖️</button>
-            </div>
-            <div class="xuper-modal-body">
-                <p>📽️ ${type === 'movies' ? 'Película' : 'Serie'}</p>
-                <p>Disponible en XUPERFLIX</p>
-                <button class="xuper-btn" onclick="closeXuperModal()">Cerrar</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
-}
-
-function closeXuperModal() {
-    const modal = document.querySelector('.xuper-modal');
-    if (modal) modal.remove();
-    document.body.style.overflow = 'auto';
 }
 
 // ===== FUNCIONES BÚSQUEDA =====
@@ -259,22 +227,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .xuper-btn { background: #ff0000; color: white; border: none; padding: 1rem 2rem; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
         .xuper-btn:hover { background: #cc0000; transform: translateY(-2px); }
         .xuper-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
-        .xuper-card { background: #121212; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s; position: relative; }
-        .xuper-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(255,0,0,0.3); }
-        .xuper-info { padding: 1rem; }
-        .xuper-meta { display: flex; justify-content: space-between; color: #ccc; }
-        .xuper-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,0,0,0.8); color: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
-        .xuper-card:hover .xuper-play { opacity: 1; }
-        .xuper-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .xuper-modal-content { background: #121212; padding: 2rem; border-radius: 15px; max-width: 500px; text-align: center; }
+        .xuper-section { margin-bottom: 2rem; }
+        .xuper-section-header h2 { font-size: 1.5rem; margin-bottom: 1rem; color: #ff0000; }
         .xuper-no-results { text-align: center; padding: 3rem; color: white; }
     `;
     document.head.appendChild(style);
 });
 
-// ===== FUNCIONES GLOBALES PARA HTML =====
+// ===== FUNCIONES GLOBALES =====
 window.openXuperPlayer = (type, title) => {
     alert(`🎬 Reproduciendo ${title} en ${XUPERFLIX.name}`);
 };
-
-window.closeXuperModal = () => closeXuperModal();
