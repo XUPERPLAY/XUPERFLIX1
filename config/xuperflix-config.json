@@ -1,25 +1,13 @@
 {
   "version": "1.0",
-  "update": "1.0",
   "name": "XUPERFLIX",
-  "download": "null",
-  "maintenance": "0",
-  "maintenance_text": "XUPERFLIX está en mantenimiento. Volveremos pronto.",
-  "api-url": "https://anusdbs.onrender.com",
-  "api-key": "5404383ab",
-  "colors": {
-    "primary": "#ff0000",
-    "secondary": "#121212",
-    "background": "#000000",
-    "text": "#ffffff"
+  "api": {
+    "base": "https://anusdbs.onrender.com",
+    "key": "5404383ab",
+    "endpoints": {
+      "movies": "https://anusdbs.onrender.com/movies?api-key=5404383ab",
+      "series": "https://anusdbs.onrender.com/series?api-key=5404383ab"
+    }
   },
-  "social": {
-    "email": "xuperflix@xuperflix.com"
-  },
-  "features": {
-    "search": true,
-    "genres": true,
-    "download": false,
-    "quality": ["HD", "FullHD", "4K"]
-  }
+  "test": "https://anusdbs.onrender.com/movies?api-key=5404383ab&limit=1"
 }
