@@ -1,4 +1,3 @@
-XUPERFLIX
 XUPERFLIX - Plataforma de Películas y Series Online
 XUPERFLIX es una plataforma de streaming que ofrece un catálogo completo de películas y series en alta calidad, con una interfaz intuitiva y experiencia de usuario optimizada.
 Características principales
