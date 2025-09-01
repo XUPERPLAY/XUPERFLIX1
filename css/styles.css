@@ -87,7 +87,7 @@ header {
 .search-container {
     display: flex;
     align-items: center;
-    background-color: transparent;
+    background-color: #;
     border-radius: 18px;
     padding: 0.5rem 1rem;
     width: 50%;
@@ -127,7 +127,7 @@ header {
     justify-content: center;
     gap: 1rem;
     margin: 1rem 0;
-    padding-bottom: 1rem;
+    padding-button: 1rem;
 }
 .nav-tab {
     width: 100%;
@@ -1122,150 +1122,4 @@ footer {
     .modal-body {
         padding: 1rem;
     }
-    .modal-title {
-        font-size: 1.5rem;
-    }
-    .server-option {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    .watch-btn {
-        width: 100%;
-        justify-content: center;
-    }
-    .episode-header {
-        flex-direction: column;
-    }
-    .episode-thumbnail {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16/9;
-    }
-}
-@media (max-width: 480px) {
-    .hero-section {
-        height: 300px;
-    }
-    .hero-title {
-        font-size: 1.5rem;
-    }
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-    .movies-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    }
-    .movie-card {
-        width: 130px;
-    }
-    .movie-poster {
-        height: 195px;
-    }
-    .movie-title {
-        font-size: 0.9rem;
-    }
-    .modal-backdrop {
-        height: 180px;
-    }
-    .modal-poster {
-        width: 100px;
-        height: 150px;
-    }
-    .modal-body {
-        padding: 1rem;
-        padding-top: 1.5rem;
-    }
-    .modal-title {
-        font-size: 1.3rem;
-    }
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    .newsletter-form {
-        flex-direction: column;
-    }
-}
-/* Animaciones */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-.pulse {
-    animation: pulse 2s infinite;
-}
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-.fadeInUp {
-    animation: fadeInUp 0.5s ease forwards;
-}
-/* Estilos para el modal de géneros */
-.genres-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
-}
-.genre-card {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 0.75rem;
-    padding: 1rem;
-    text-align: center;
-    transition: var(--transition-fast);
-    cursor: pointer;
-    border: 1px solid var(--border-color);
-}
-.genre-card:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-5px);
-}
-.genre-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: var(--accent-color);
-}
-.genre-card:hover .genre-icon {
-    color: white;
-}
-.genre-name {
-    font-weight: 600;
-}
-/* Estilos para términos y privacidad */
-.terms-content,
-.privacy-content {
-    line-height: 1.7;
-    color: var(--text-secondary);
-}
-.terms-content h3,
-.privacy-content h3 {
-    color: var(--text-primary);
-    margin: 1.5rem 0 0.5rem 0;
-}
-.terms-content p,
-.privacy-content p {
-    margin-bottom: 1rem;
-}
-.footer-small-text {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-}
+    .modal
