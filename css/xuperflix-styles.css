@@ -119,13 +119,13 @@ main {
     margin-bottom: 2rem;
 }
 
-.hero-section h1 {
+.hero-placeholder h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: var(--xuper-accent);
 }
 
-.hero-section p {
+.hero-placeholder p {
     font-size: 1.2rem;
     color: var(--xuper-text-secondary);
 }
@@ -144,6 +144,8 @@ main {
     transition: all 0.3s ease;
     cursor: pointer;
     border: 1px solid var(--xuper-border);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
 }
 
 .xuper-card:hover {
@@ -167,6 +169,9 @@ main {
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--xuper-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .xuper-meta {
@@ -181,10 +186,16 @@ main {
     margin-bottom: 2rem;
 }
 
-.xuper-section h2 {
-    font-size: 1.5rem;
+.xuper-section-header {
     margin-bottom: 1rem;
+}
+
+.xuper-section-header h2 {
+    font-size: 1.5rem;
     color: var(--xuper-accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* ===== LOADING ===== */
@@ -209,6 +220,11 @@ main {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== RESPONSIVE ===== */
