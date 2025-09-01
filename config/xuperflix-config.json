@@ -1,13 +1,9 @@
 {
   "version": "1.0",
-  "name": "XUPERFLIX",
-  "api": {
-    "base": "https://anusdbs.onrender.com",
-    "key": "5404383ab",
-    "endpoints": {
-      "movies": "https://anusdbs.onrender.com/movies?api-key=5404383ab",
-      "series": "https://anusdbs.onrender.com/series?api-key=5404383ab"
-    }
-  },
-  "test": "https://anusdbs.onrender.com/movies?api-key=5404383ab&limit=1"
+  "update": "1.0",
+  "download": "null",
+  "maintenance": "0",
+  "maintenance_text": "auto",
+  "api-url": "https://anusdbs.onrender.com",
+  "api-key": "5404383ab"
 }
