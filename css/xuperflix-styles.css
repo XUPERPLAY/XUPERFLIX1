@@ -112,11 +112,14 @@ main {
 }
 
 .hero-section {
+    margin-bottom: 2rem;
+}
+
+.hero-placeholder {
     text-align: center;
     padding: 3rem 1rem;
     background: linear-gradient(135deg, var(--xuper-primary), var(--xuper-secondary));
     border-radius: 15px;
-    margin-bottom: 2rem;
 }
 
 .hero-placeholder h1 {
@@ -130,41 +133,112 @@ main {
     color: var(--xuper-text-secondary);
 }
 
-#content-container {
+/* ===== HERO REAL ===== */
+.hero-real {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.hero-real img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    color: white;
+}
+
+.hero-overlay h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-details {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.play-btn {
+    background: var(--xuper-accent);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.play-btn:hover {
+    background: var(--xuper-accent-hover);
+    transform: translateY(-2px);
+}
+
+/* ===== GRID DE CONTENIDO ===== */
+.real-content {
+    margin: 2rem 0;
+}
+
+.section-title {
+    color: var(--xuper-accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.real-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
 }
 
-/* ===== CARDS ===== */
-.xuper-card {
-    background-color: var(--xuper-card);
+.real-card {
+    background: var(--xuper-card);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
     cursor: pointer;
+    transition: all 0.3s ease;
     border: 1px solid var(--xuper-border);
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
 }
 
-.xuper-card:hover {
+.real-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
     border-color: var(--xuper-accent);
 }
 
-.xuper-card img {
+.card-image img {
     width: 100%;
-    height: 300px;
+    height: 280px;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.xuper-info {
+.real-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-info {
     padding: 1rem;
 }
 
-.xuper-info h3 {
+.card-info h3 {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -174,28 +248,34 @@ main {
     text-overflow: ellipsis;
 }
 
-.xuper-meta {
+.card-meta {
     display: flex;
     justify-content: space-between;
     color: var(--xuper-text-secondary);
     font-size: 0.9rem;
 }
 
-/* ===== SECCIONES ===== */
-.xuper-section {
-    margin-bottom: 2rem;
+/* ===== MENSAJES ===== */
+.message-box, .error-message, .empty-message {
+    text-align: center;
+    padding: 3rem;
+    color: white;
 }
 
-.xuper-section-header {
-    margin-bottom: 1rem;
+.message-box button, .error-message button {
+    background: var(--xuper-accent);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
 }
 
-.xuper-section-header h2 {
-    font-size: 1.5rem;
-    color: var(--xuper-accent);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.message-box button:hover, .error-message button:hover {
+    background: var(--xuper-accent-hover);
 }
 
 /* ===== LOADING ===== */
@@ -238,9 +318,17 @@ main {
         width: 100%;
     }
     
-    #content-container {
+    .real-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
+    }
+    
+    .hero-real img {
+        height: 300px;
+    }
+    
+    .hero-overlay h1 {
+        font-size: 2rem;
     }
 }
 
