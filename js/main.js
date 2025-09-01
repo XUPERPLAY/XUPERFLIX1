@@ -71,19 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadContent(type) {
         currentContentType = type;
         isLoading = true;
-        isSearchActive = false; // Resetear estado de búsqueda
+        isSearchActive = false;
 
-        // Ocultar todo excepto el loading al inicio
         loadingElement.style.display = "flex";
         contentContainer.innerHTML = "";
 
         try {
-            // Si es la primera vez que cargamos películas o series, hacemos la petición
             if (type === "movies" && allMovies.length === 0) {
                 const apiUrl = getApiUrl("movies");
-                const response = await fetch(`${apiUrl}`);
+                const response = await fetch(apiUrl);
                 const data = await response.json();
-                console.log('Datos de películas recibidos:', data); // Depuración
+                console.log('Datos de películas recibidos:', data);
                 if (data.success && data.data.length > 0) {
                     allMovies = data.data;
                 } else {
@@ -93,9 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if ((type === "series" || type === "all") && allSeries.length === 0) {
                 const apiUrl = getApiUrl("series");
-                const response = await fetch(`${apiUrl}`);
+                const response = await fetch(apiUrl);
                 const data = await response.json();
-                console.log('Datos de series recibidos:', data); // Depuración
+                console.log('Datos de series recibidos:', data);
                 if (data.success && data.data.length > 0) {
                     allSeries = data.data;
                 } else {
@@ -103,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Seleccionar contenido destacado
             if (type === "movies" && allMovies.length > 0) {
                 featuredContent = allMovies[Math.floor(Math.random() * allMovies.length)];
                 updateHeroSection(featuredContent, "movies");
@@ -120,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Organizar contenido por género según el tipo
             if (type === "movies") {
                 organizeContentByGenre("movies");
             } else if (type === "series") {
@@ -137,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         } finally {
             isLoading = false;
-            loadingElement.style.display = "none"; // Ocultar loading siempre
+            loadingElement.style.display = "none";
             tabs.style.display = "flex";
             heroSection.style.display = "block";
             contentContainer.style.display = "block";
@@ -384,12 +380,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const apiUrlMovies = getApiUrl("movies");
             const responseMovies = await fetch(`${apiUrlMovies}&search=titulo=${encodeURIComponent(query)}`);
             const dataMovies = await responseMovies.json();
-            console.log('Resultados de búsqueda de películas:', dataMovies); // Depuración
+            console.log('Resultados de búsqueda de películas:', dataMovies);
 
             const apiUrlSeries = getApiUrl("series");
             const responseSeries = await fetch(`${apiUrlSeries}&search=titulo=${encodeURIComponent(query)}`);
             const dataSeries = await responseSeries.json();
-            console.log('Resultados de búsqueda de series:', dataSeries); // Depuración
+            console.log('Resultados de búsqueda de series:', dataSeries);
 
             const hasMovies = dataMovies.success && dataMovies.data.length > 0;
             const hasSeries = dataSeries.success && dataSeries.data.length > 0;
@@ -488,13 +484,186 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Función para abrir el modal de contenido (ejemplo básico, a completar)
+    // Función para abrir el modal de contenido
     window.openContentModal = (type, index) => {
-        const content = type === "movies" ? allMovies[index] : allSeries[index];
-        if (content) {
-            movieModal.style.display = "block";
-            // Aquí deberías llenar el modal con los detalles del contenido
-            console.log("Abriendo modal para:", content);
+        const contentArray = type === "movies" ? allMovies : allSeries;
+        const content = contentArray[index];
+        if (!content) {
+            console.error("Contenido no encontrado para index:", index);
+            return;
+        }
+
+        // Mostrar el modal
+        movieModal.style.display = "block";
+        console.log("Abriendo modal para:", content);
+
+        // Rellenar backdrop y poster
+        const backdrop = document.getElementById("modal-backdrop");
+        const poster = document.getElementById("modal-poster");
+        if (backdrop && poster) {
+            backdrop.src = content.post || content.miniature || "https://via.placeholder.com/780x439";
+            poster.src = content.post || content.miniature || "https://via.placeholder.com/185x278";
+            backdrop.alt = `${content.titulo} Backdrop`;
+            poster.alt = `${content.titulo} Poster`;
+            console.log("Backdrop/Poster asignados:", backdrop.src);
+        } else {
+            console.error("Elementos backdrop o poster no encontrados en el DOM");
+        }
+
+        // Rellenar título y meta
+        const title = document.getElementById("modal-title");
+        const year = document.getElementById("modal-year")?.querySelector("span");
+        const duration = document.getElementById("modal-duration")?.querySelector("span");
+        const rating = document.getElementById("modal-rating")?.querySelector("span");
+        const typeSpan = document.getElementById("modal-type")?.querySelector("span");
+        if (title && year && duration && rating && typeSpan) {
+            title.textContent = content.titulo || "Sin título";
+            year.textContent = content.año || "N/A";
+            duration.textContent = content.duracion || "N/A";
+            rating.textContent = (Math.random() * 2 + 7).toFixed(1);
+            typeSpan.textContent = type === "movies" ? "Película" : "Serie";
+        } else {
+            console.error("Elementos de título o meta no encontrados en el DOM");
+        }
+
+        // Rellenar géneros
+        const genresContainer = document.getElementById("modal-genres");
+        if (genresContainer) {
+            genresContainer.innerHTML = "";
+            if (content.generos && Array.isArray(content.generos)) {
+                content.generos.forEach(genre => {
+                    const span = document.createElement("span");
+                    span.textContent = genre;
+                    genresContainer.appendChild(span);
+                });
+            } else {
+                genresContainer.innerHTML = "<span>Géneros no disponibles</span>";
+                console.log("Géneros no encontrados en:", content);
+            }
+        }
+
+        // Rellenar reparto
+        const castList = document.getElementById("cast-list");
+        if (castList) {
+            castList.innerHTML = "";
+            if (content.reparto && Array.isArray(content.reparto)) {
+                content.reparto.forEach(actor => {
+                    const div = document.createElement("div");
+                    div.textContent = actor || "Actor desconocido";
+                    castList.appendChild(div);
+                });
+            } else {
+                castList.innerHTML = "<div>Reparto no disponible</div>";
+                console.log("Reparto no encontrado en:", content);
+            }
+        }
+
+        // Rellenar opciones de reproducción (películas)
+        const movieServersSection = document.getElementById("movie-servers-section");
+        const seriesSeasonsSection = document.getElementById("series-seasons-section");
+        if (movieServersSection && seriesSeasonsSection) {
+            movieServersSection.style.display = type === "movies" ? "block" : "none";
+            seriesSeasonsSection.style.display = type === "series" ? "block" : "none";
+
+            if (type === "movies") {
+                const serverTabs = document.getElementById("server-tabs");
+                const serverContents = document.getElementById("server-contents");
+                if (serverTabs && serverContents) {
+                    serverTabs.innerHTML = "";
+                    serverContents.innerHTML = "";
+                    if (content.servidores && Array.isArray(content.servidores)) {
+                        content.servidores.forEach((server, i) => {
+                            const tab = document.createElement("div");
+                            tab.className = i === 0 ? "server-tab active" : "server-tab";
+                            tab.textContent = `Servidor ${i + 1}`;
+                            tab.setAttribute("data-index", i);
+                            serverTabs.appendChild(tab);
+
+                            const contentDiv = document.createElement("div");
+                            contentDiv.className = i === 0 ? "server-content active" : "server-content";
+                            contentDiv.innerHTML = `<iframe src="${server || 'https://via.placeholder.com/640x360'}"></iframe>`;
+                            serverContents.appendChild(contentDiv);
+                        });
+                    } else {
+                        serverContents.innerHTML = "<p>No hay opciones de reproducción</p>";
+                        console.log("Servidores no encontrados en:", content);
+                    }
+                }
+            } else if (type === "series") {
+                const seasonsTabs = document.getElementById("seasons-tabs");
+                const seasonsContents = document.getElementById("seasons-contents");
+                if (seasonsTabs && seasonsContents) {
+                    seasonsTabs.innerHTML = "";
+                    seasonsContents.innerHTML = "";
+                    if (content.temporadas && Array.isArray(content.temporadas)) {
+                        content.temporadas.forEach((season, i) => {
+                            const tab = document.createElement("div");
+                            tab.className = i === 0 ? "season-tab active" : "season-tab";
+                            tab.textContent = `Temporada ${i + 1}`;
+                            tab.setAttribute("data-index", i);
+                            seasonsTabs.appendChild(tab);
+
+                            const contentDiv = document.createElement("div");
+                            contentDiv.className = i === 0 ? "season-content active" : "season-content";
+                            contentDiv.innerHTML = season.episodios && Array.isArray(season.episodios)
+                                ? season.episodios.map(ep => `<p onclick="playEpisode('${ep.enlace}')">Episodio ${ep.numero}: ${ep.titulo || 'Sin título'}</p>`).join("")
+                                : "<p>No hay episodios</p>";
+                            seasonsContents.appendChild(contentDiv);
+                        });
+                    } else {
+                        seasonsContents.innerHTML = "<p>No hay temporadas disponibles</p>";
+                        console.log("Temporadas no encontradas en:", content);
+                    }
+                }
+            }
         }
     };
+
+    // Función para reproducir un episodio (ejemplo)
+    function playEpisode(enlace) {
+        playerIframe.src = enlace || "https://via.placeholder.com/640x360";
+        playerTitle.textContent = "Reproduciendo";
+        playerContainer.style.display = "block";
+    }
+
+    // Iniciar carga inicial
+    loadContent("all");
+
+    // Evento para búsqueda
+    searchBtn.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query && !isLoading) {
+            searchContent(query);
+        }
+    });
+
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && !isLoading) {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchContent(query);
+            }
+        }
+    });
+
+    // Evento para cerrar el modal
+    modalClose.addEventListener("click", () => {
+        movieModal.style.display = "none";
+    });
+
+    // Evento para cerrar el reproductor
+    playerClose.addEventListener("click", () => {
+        playerContainer.style.display = "none";
+    });
+
+    // Evento para las pestañas
+    navTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            if (!isLoading) {
+                navTabs.forEach((t) => t.classList.remove("active"));
+                tab.classList.add("active");
+                loadContent(tab.getAttribute("data-content"));
+            }
+        });
+    });
 });
