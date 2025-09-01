@@ -1,20 +1,20 @@
-XUPERFLIX - Plataforma de Películas y Series Online.
-XUPERFLIX es una plataforma de streaming que ofrece un catálogo completo de películas y series en alta calidad, con una interfaz intuitiva y experiencia de usuario optimizada.
+PelículasGapsPlus
+FilmsGapsPlus - Plataforma de Películas y Series Online
+FilmsGapsPlus es una plataforma de streaming que ofrece un catálogo completo de películas y series en alta calidad, con una interfaz intuitiva y experiencia de usuario optimizada.
+
 Características principales
-🎬 Catálogo extenso: Miles de películas y series organizadas por géneros
-🔍 Búsqueda avanzada: Encuentra fácilmente tu contenido favorito
-🌐 Reproducción en múltiples servidores: Opciones de calidad HD y diferentes idiomas
-📱 Diseño responsivo: Compatible con todos los dispositivos
-🔒 Privacidad garantizada: No recopilamos datos personales de los usuarios
+🎬 Catálogo extenso : Miles de películas y series organizadas por géneros
+🔍 Búsqueda avanzada : Encuentra fácilmente tu contenido favorito
+🌐 Reproducción en múltiples servidores : Opciones de calidad HD y diferentes idiomas
+📱 Diseño responsivo : Compatible con todos los dispositivos
+🔒 Privacidad garantizada : No recopilamos datos personales de los usuarios
 Tecnologías utilizadas
-
-Interfaz: HTML5, CSS3 (con variables CSS), JavaScript (ES6+)
-Fuentes: Inter (Google Fonts), Font Awesome
-API: Conexión con base de datos de películas/series
-Despliegue: Páginas de GitHub
-
+Interfaz : HTML5, CSS3 (con variables CSS), JavaScript (ES6+)
+Fuentes : Inter (Google Fonts), Font Awesome
+API : Conexión con base de datos de películas/series
+Despliegue : Páginas de GitHub
 Estructura del Proyecto
-textXUPERFLIX/
+FilmsGapsPlus/
 ├── css/
 │   └── styles.css          # Estilos principales
 ├── js/
@@ -26,12 +26,14 @@ textXUPERFLIX/
 └── README.md               # Este archivo
 Instalación y uso
 No se requiere instalación. La plataforma está disponible directamente en:
-🔗 XUPERFLIX Web
+
+🔗 FilmsGapsPlus Web
 Contacto y redes sociales
 Para soporte técnico, informe de errores o sugerencias:
+
 💬 WhatsApp
 📷 Instagram
-📱 Telegram
+📱Telegrama
 📌 Pinterest
 📹 YouTube
 ☁️ BlueSky
@@ -41,4 +43,4 @@ Para soporte técnico, informe de errores o sugerencias:
 ✉️ Correo electrónico
 ✖️ X
 Donaciones
-❤️ PayPal8,2s¿Cómo puede ayudar Grok?
+❤️ PayPal
