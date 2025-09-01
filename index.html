@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XUPERFLIX - Películas y Series Online</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    <title>XUPERFLIX - Streaming Real</title>
     <link rel="stylesheet" href="css/xuperflix-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="logo">XUPER<span>FLIX</span></div>
+        <div class="logo">XUPERFLIX</div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar películas o series...">
             <button id="search-btn"><i class="fas fa-search"></i></button>
@@ -20,26 +19,16 @@
 
     <main>
         <div class="hero-section" id="hero-section">
-            <div class="hero-placeholder">
-                <h1>Bienvenido a XUPERFLIX</h1>
-                <p>Cargando contenido...</p>
-            </div>
+            <!-- Contenido dinámico -->
         </div>
 
         <div class="nav-tabs" id="tabs">
-            <div class="nav-tab active" data-content="movies">
-                <i class="fas fa-film"></i> Películas
-            </div>
-            <div class="nav-tab" data-content="series">
-                <i class="fas fa-tv"></i> Series
-            </div>
-            <div class="nav-tab" data-content="all">
-                <i class="fas fa-th-large"></i> Todo
-            </div>
+            <div class="nav-tab active" data-content="movies">🎬 Películas</div>
+            <div class="nav-tab" data-content="series">📺 Series</div>
         </div>
 
         <div id="content-container">
-            <!-- Contenido dinámico -->
+            <!-- Contenido real -->
         </div>
     </main>
 
@@ -47,17 +36,6 @@
         <div class="spinner"></div>
         <span>Cargando contenido...</span>
     </div>
-
-    <footer>
-        <div class="footer-content">
-            <div>
-                <div class="logo">XUPER<span>FLIX</span></div>
-                <p class="footer-description">
-                    La mejor plataforma de streaming personal. Solo para uso educativo.
-                </p>
-            </div>
-        </div>
-    </footer>
 
     <script src="js/xuperflix-app.js"></script>
 </body>
