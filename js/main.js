@@ -322,6 +322,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 realIndex = contentArray.findIndex((c) => c.titulo === item.titulo && c.año === item.año);
+                if (realIndex === -1) {
+                    console.error("Índice no encontrado para:", item.titulo, item.año);
+                    return;
+                }
                 openContentModal(contentType, realIndex);
             });
 
@@ -489,7 +493,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const contentArray = type === "movies" ? allMovies : allSeries;
         const content = contentArray[index];
         if (!content) {
-            console.error("Contenido no encontrado para index:", index);
+            console.error("Contenido no encontrado para index:", index, "en", contentArray);
             return;
         }
 
@@ -505,7 +509,7 @@ document.addEventListener("DOMContentLoaded", () => {
             poster.src = content.post || content.miniature || "https://via.placeholder.com/185x278";
             backdrop.alt = `${content.titulo} Backdrop`;
             poster.alt = `${content.titulo} Poster`;
-            console.log("Backdrop/Poster asignados:", backdrop.src);
+            console.log("Backdrop/Poster asignados:", { backdropSrc: backdrop.src, posterSrc: poster.src });
         } else {
             console.error("Elementos backdrop o poster no encontrados en el DOM");
         }
@@ -616,6 +620,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             }
+        } else {
+            console.error("Secciones de servidores o temporadas no encontradas en el DOM");
         }
     };
 
