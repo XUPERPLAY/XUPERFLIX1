@@ -492,99 +492,133 @@ document.addEventListener("DOMContentLoaded", () => {
     window.openContentModal = (type, index) => {
         const contentArray = type === "movies" ? allMovies : allSeries;
         const content = contentArray[index];
-        if (!content) return;
+        if (!content) {
+            console.error("Contenido no encontrado para index:", index);
+            return;
+        }
 
         // Mostrar el modal
         movieModal.style.display = "block";
+        console.log("Abriendo modal para:", content); // Depuración
 
         // Rellenar backdrop y poster
         const backdrop = document.getElementById("modal-backdrop");
         const poster = document.getElementById("modal-poster");
-        backdrop.src = content.post || content.miniature || "https://via.placeholder.com/780x439";
-        poster.src = content.post || content.miniature || "https://via.placeholder.com/185x278";
-        backdrop.alt = `${content.titulo} Backdrop`;
-        poster.alt = `${content.titulo} Poster`;
+        if (backdrop && poster) {
+            backdrop.src = content.post || content.miniature || "https://via.placeholder.com/780x439";
+            poster.src = content.post || content.miniature || "https://via.placeholder.com/185x278";
+            backdrop.alt = `${content.titulo} Backdrop`;
+            poster.alt = `${content.titulo} Poster`;
+            console.log("Backdrop/Poster asignados:", backdrop.src);
+        } else {
+            console.error("Elementos backdrop o poster no encontrados en el DOM");
+        }
 
         // Rellenar título y meta
-        document.getElementById("modal-title").textContent = content.titulo || "Sin título";
-        document.getElementById("modal-year").querySelector("span").textContent = content.año || "N/A";
-        document.getElementById("modal-duration").querySelector("span").textContent = content.duracion || "N/A";
-        document.getElementById("modal-rating").querySelector("span").textContent = (Math.random() * 2 + 7).toFixed(1);
-        document.getElementById("modal-type").querySelector("span").textContent = type === "movies" ? "Película" : "Serie";
+        const title = document.getElementById("modal-title");
+        const year = document.getElementById("modal-year")?.querySelector("span");
+        const duration = document.getElementById("modal-duration")?.querySelector("span");
+        const rating = document.getElementById("modal-rating")?.querySelector("span");
+        const typeSpan = document.getElementById("modal-type")?.querySelector("span");
+        if (title && year && duration && rating && typeSpan) {
+            title.textContent = content.titulo || "Sin título";
+            year.textContent = content.año || "N/A";
+            duration.textContent = content.duracion || "N/A";
+            rating.textContent = (Math.random() * 2 + 7).toFixed(1);
+            typeSpan.textContent = type === "movies" ? "Película" : "Serie";
+        } else {
+            console.error("Elementos de título o meta no encontrados en el DOM");
+        }
 
         // Rellenar géneros
         const genresContainer = document.getElementById("modal-genres");
-        genresContainer.innerHTML = "";
-        if (content.generos && Array.isArray(content.generos)) {
-            content.generos.forEach(genre => {
-                const span = document.createElement("span");
-                span.textContent = genre;
-                genresContainer.appendChild(span);
-            });
+        if (genresContainer) {
+            genresContainer.innerHTML = "";
+            if (content.generos && Array.isArray(content.generos)) {
+                content.generos.forEach(genre => {
+                    const span = document.createElement("span");
+                    span.textContent = genre;
+                    genresContainer.appendChild(span);
+                });
+            } else {
+                genresContainer.innerHTML = "<span>Géneros no disponibles</span>";
+                console.log("Géneros no encontrados en:", content);
+            }
         }
 
         // Rellenar reparto
         const castList = document.getElementById("cast-list");
-        castList.innerHTML = "";
-        if (content.reparto && Array.isArray(content.reparto)) {
-            content.reparto.forEach(actor => {
-                const div = document.createElement("div");
-                div.textContent = actor || "Actor desconocido";
-                castList.appendChild(div);
-            });
-        } else {
-            castList.innerHTML = "<div>Reparto no disponible</div>";
+        if (castList) {
+            castList.innerHTML = "";
+            if (content.reparto && Array.isArray(content.reparto)) {
+                content.reparto.forEach(actor => {
+                    const div = document.createElement("div");
+                    div.textContent = actor || "Actor desconocido";
+                    castList.appendChild(div);
+                });
+            } else {
+                castList.innerHTML = "<div>Reparto no disponible</div>";
+                console.log("Reparto no encontrado en:", content);
+            }
         }
 
         // Rellenar opciones de reproducción (películas)
         const movieServersSection = document.getElementById("movie-servers-section");
         const seriesSeasonsSection = document.getElementById("series-seasons-section");
-        movieServersSection.style.display = type === "movies" ? "block" : "none";
-        seriesSeasonsSection.style.display = type === "series" ? "block" : "none";
+        if (movieServersSection && seriesSeasonsSection) {
+            movieServersSection.style.display = type === "movies" ? "block" : "none";
+            seriesSeasonsSection.style.display = type === "series" ? "block" : "none";
 
-        if (type === "movies") {
-            const serverTabs = document.getElementById("server-tabs");
-            const serverContents = document.getElementById("server-contents");
-            serverTabs.innerHTML = "";
-            serverContents.innerHTML = "";
-            if (content.servidores && Array.isArray(content.servidores)) {
-                content.servidores.forEach((server, i) => {
-                    const tab = document.createElement("div");
-                    tab.className = i === 0 ? "server-tab active" : "server-tab";
-                    tab.textContent = `Servidor ${i + 1}`;
-                    tab.setAttribute("data-index", i);
-                    serverTabs.appendChild(tab);
+            if (type === "movies") {
+                const serverTabs = document.getElementById("server-tabs");
+                const serverContents = document.getElementById("server-contents");
+                if (serverTabs && serverContents) {
+                    serverTabs.innerHTML = "";
+                    serverContents.innerHTML = "";
+                    if (content.servidores && Array.isArray(content.servidores)) {
+                        content.servidores.forEach((server, i) => {
+                            const tab = document.createElement("div");
+                            tab.className = i === 0 ? "server-tab active" : "server-tab";
+                            tab.textContent = `Servidor ${i + 1}`;
+                            tab.setAttribute("data-index", i);
+                            serverTabs.appendChild(tab);
 
-                    const contentDiv = document.createElement("div");
-                    contentDiv.className = i === 0 ? "server-content active" : "server-content";
-                    contentDiv.innerHTML = `<iframe src="${server || 'https://via.placeholder.com/640x360'}"></iframe>`;
-                    serverContents.appendChild(contentDiv);
-                });
-            } else {
-                serverContents.innerHTML = "<p>No hay opciones de reproducción</p>";
-            }
-        } else if (type === "series") {
-            const seasonsTabs = document.getElementById("seasons-tabs");
-            const seasonsContents = document.getElementById("seasons-contents");
-            seasonsTabs.innerHTML = "";
-            seasonsContents.innerHTML = "";
-            if (content.temporadas && Array.isArray(content.temporadas)) {
-                content.temporadas.forEach((season, i) => {
-                    const tab = document.createElement("div");
-                    tab.className = i === 0 ? "season-tab active" : "season-tab";
-                    tab.textContent = `Temporada ${i + 1}`;
-                    tab.setAttribute("data-index", i);
-                    seasonsTabs.appendChild(tab);
+                            const contentDiv = document.createElement("div");
+                            contentDiv.className = i === 0 ? "server-content active" : "server-content";
+                            contentDiv.innerHTML = `<iframe src="${server || 'https://via.placeholder.com/640x360'}"></iframe>`;
+                            serverContents.appendChild(contentDiv);
+                        });
+                    } else {
+                        serverContents.innerHTML = "<p>No hay opciones de reproducción</p>";
+                        console.log("Servidores no encontrados en:", content);
+                    }
+                }
+            } else if (type === "series") {
+                const seasonsTabs = document.getElementById("seasons-tabs");
+                const seasonsContents = document.getElementById("seasons-contents");
+                if (seasonsTabs && seasonsContents) {
+                    seasonsTabs.innerHTML = "";
+                    seasonsContents.innerHTML = "";
+                    if (content.temporadas && Array.isArray(content.temporadas)) {
+                        content.temporadas.forEach((season, i) => {
+                            const tab = document.createElement("div");
+                            tab.className = i === 0 ? "season-tab active" : "season-tab";
+                            tab.textContent = `Temporada ${i + 1}`;
+                            tab.setAttribute("data-index", i);
+                            seasonsTabs.appendChild(tab);
 
-                    const contentDiv = document.createElement("div");
-                    contentDiv.className = i === 0 ? "season-content active" : "season-content";
-                    contentDiv.innerHTML = season.episodios && Array.isArray(season.episodios)
-                        ? season.episodios.map(ep => `<p onclick="playEpisode('${ep.enlace}')">Episodio ${ep.numero}: ${ep.titulo || 'Sin título'}</p>`).join("")
-                        : "<p>No hay episodios</p>";
-                    seasonsContents.appendChild(contentDiv);
-                });
-            } else {
-                seasonsContents.innerHTML = "<p>No hay temporadas disponibles</p>";
+                            const contentDiv = document.createElement("div");
+                            contentDiv.className = i === 0 ? "season-content active" : "season-content";
+                            contentDiv.innerHTML = season.episodios && Array.isArray(season.episodios)
+                                ? season.episodios.map(ep => `<p onclick="playEpisode('${ep.enlace}')">Episodio ${ep.numero}: ${ep.titulo || 'Sin título'}</p>`).join("")
+                                : "<p>No hay episodios</p>";
+                            seasonsContents.appendChild(contentDiv);
+                        });
+                    } else {
+                        seasonsContents.innerHTML = "<p>No hay temporadas disponibles</p>";
+                        console.log("Temporadas no encontradas en:", content);
+                    }
+                }
             }
         }
     };
