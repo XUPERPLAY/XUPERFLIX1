@@ -1,4 +1,3 @@
-// JavaScript para la aplicación XUPERFLIX
 document.addEventListener("DOMContentLoaded", () => {
     // Elementos del DOM
     const heroSection = document.getElementById("hero-section")
