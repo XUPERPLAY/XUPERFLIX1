@@ -66,6 +66,9 @@ header {
     color: var(--highlight-red);
     font-weight: 700;
 }
+.logo::before {
+    content: "XUPERFLIX";
+}
 .logo2 {
     font-size: 1.5rem;
     font-weight: 700;
@@ -78,10 +81,13 @@ header {
     color: var(--highlight-red);
     font-weight: 700;
 }
+.logo2::before {
+    content: "XUPERFLIX";
+}
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #;
+    background-color: transparent;
     border-radius: 18px;
     padding: 0.5rem 1rem;
     width: 50%;
@@ -121,7 +127,7 @@ header {
     justify-content: center;
     gap: 1rem;
     margin: 1rem 0;
-    padding-button: 1rem;
+    padding-bottom: 1rem;
 }
 .nav-tab {
     width: 100%;
@@ -943,6 +949,9 @@ footer {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+.footer-logo::before {
+    content: "XUPERFLIX";
 }
 .footer-logo span {
     color: var(--highlight-red);
