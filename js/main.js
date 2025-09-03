@@ -941,9 +941,9 @@ document.addEventListener("DOMContentLoaded", () => {
     feedbackBtn.addEventListener('click', () => {
         const email = document.querySelector('.newsletter-input').value.trim();
         if (email) {
-            window.location.href = `mailto:filmsgapsplusdevelopers@gmail.com?subject=Feedback%20FilmsGapsPlus&body=Mi%20correo:%20${email}%0A%0AMi%20feedback:%20`;
+            window.location.href = `mailto:XUPERFLIXdevelopers@gmail.com?subject=Feedback%20XUPERFLIX&body=Mi%20correo:%20${email}%0A%0AMi%20feedback:%20`;
         } else {
-            window.open('mailto:filmsgapsplusdevelopers@gmail.com?subject=Feedback%20FilmsGapsPlus', '_blank');
+            window.open('mailto:XUPERFLIXdevelopers@gmail.com?subject=Feedback%20XUPERFLIX', '_blank');
         }
     })
 
